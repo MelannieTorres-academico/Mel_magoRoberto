@@ -1,16 +1,16 @@
-import java.io.*;
-import java.util.*;
+/*// import java.io.*;
+// import java.util.*;
 
 public class Word{
-	private ArrayList<Character> correctLetters;   // correct guesses
-	private ArrayList<Character> incorrectLetters; // incorrect guesses
-	private ArrayList<Character> secret_word_arr;	//the secret word converted to array
-	private Scanner scan = new Scanner(System.in); // for user input
-	private ChooseWord word;
-
-	public Word(){
-		word = new ChooseWord();
-		String secretword=word.getWord();
+	// private ArrayList<Character> correctLetters;   // correct guesses
+	// private ArrayList<Character> incorrectLetters; // incorrect guesses
+	// private ArrayList<Character> secret_word_arr;	//the secret word converted to array
+	// private Scanner scan = new Scanner(System.in); // for user input
+	// private ChooseWord word;
+	//
+	// public Word(){
+	// 	word = new ChooseWord();
+	// 	String secretword=word.getWord();
 
 		//fills correctLetters with underscore equal to the letters of the secret word
 		this.correctLetters = new ArrayList<Character>();
@@ -86,3 +86,4 @@ public class Word{
 		}
 	}
 }
+*/

@@ -6,7 +6,7 @@ public class ChooseWord {
   private String  word;
 
   ChooseWord(){ //constructor
-    String word = null;
+    word = null;
     Random randomGenerator = new Random();
     random_num = randomGenerator.nextInt(11); //num 1-10
 
