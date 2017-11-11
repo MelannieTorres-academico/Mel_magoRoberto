@@ -1,0 +1,10 @@
+conejo
+sombrero
+carta
+corazones
+diamantes
+picas
+treboles
+varita
+magia
+guantes
