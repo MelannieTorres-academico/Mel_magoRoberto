@@ -10,11 +10,6 @@ public class GamePanel extends JPanel implements Runnable {
 	private static final int PHEIGHT = 400; //tamaño del panel
 
 	private Thread animator; //controla la animación
-	private volatile boolean start   = false;
-	private volatile boolean load    = false;
-	private volatile boolean player1 = false;
-	private volatile boolean player2 = false;
-	private volatile boolean win     = false;
 	private volatile boolean end     = false;
 	private String s;
 	private GameContext game;
