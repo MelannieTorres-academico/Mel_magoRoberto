@@ -37,10 +37,12 @@ public class WinState implements GameState {
 		}
 
 		public void draw(Graphics g){
+      int id;
 			i++;
+      id=c.getPlayer().getId();
 			g.setColor(Color.black);
-		  g.drawString("Win state: El estado está corriendo",200, 200);
-			if (i>300){
+		  g.drawString("El jugador "+id+" ganó",200, 200);
+			if (i>200){
 				transit();
 			}
 		}
@@ -49,15 +51,14 @@ public class WinState implements GameState {
 			c.setState(c.getEndState());
 		}
 
+    public int changeTurn(int id){
+      return id;
+    }
+
 		public void processKey(KeyEvent e){}
 
 		public void clickMouse(MouseEvent e) {}
-			// public void setPlayer (Player p){
-			// 	player=p;
-			// }
 
+    public void win(){}
 
-			public boolean changeTurn(){
-				return false;
-			}
 }

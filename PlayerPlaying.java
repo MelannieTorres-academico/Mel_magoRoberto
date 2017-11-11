@@ -31,11 +31,13 @@ import java.util.*;
 
 public class PlayerPlaying implements GameState {
 	private ArrayList<Character> correctLetters;   // correct guesses
-	private ArrayList<Character> incorrectLetters; // incorrect guesses
 	private ArrayList<Character> secret_word_arr;	//the secret word converted to array
 	private Scanner scan = new Scanner(System.in); // for user input
 	private ChooseWord word;
 	private	String secretword;
+	private String s;
+	private int i=0;
+
 
 	GameContext c;
 
@@ -43,43 +45,28 @@ public class PlayerPlaying implements GameState {
 			this.c = c;
 			word = new ChooseWord();
 			secretword = word.getWord();
+			s="";
 
-
-			this.correctLetters = new ArrayList<Character>();
-			for (int i = 0; i < secretword.length(); i++){
-				this.correctLetters.add('_');
+			correctLetters = new ArrayList<Character>();
+			for (int j = 0; j < secretword.length(); j++){
+				correctLetters.add('_'); //fill empty arraylist
 			}
 
-			this.incorrectLetters = new ArrayList<Character>();
-
-			//creates an arraylist with the letters of the secret word as elements
-			this.secret_word_arr = new ArrayList<Character>();
-			for(int i = 0; i < secretword.length();i++){
-					secret_word_arr.add(secretword.charAt(i));
+			secret_word_arr = new ArrayList<Character>(); //creates an arraylist with the letters of the secret word as elements
+			for(int j = 0; j < secretword.length();j++){
+					secret_word_arr.add(secretword.charAt(j));
 			}
-
-
 
 		}
 
 		public void draw(Graphics g){
 			g.setColor(Color.black);
-			//g.drawString("Playing palabra:"+secretword,200, 200);
-			//g.drawString("Secret word array:"+secret_word_arr,200, 200);
+			g.drawString("Jugador "+c.getPlayer().getId()+" . Escriba una letra o parte de la palabra que desea adivinar.",15,15);
+			g.drawString("Palabra secreta:",130, 200);
 
-			//g.drawString("Secret word array:"+correctLetters,200, 200);
-			g.drawString("Secret word array:",130, 200);
-
-			for (int i = 0; i < this.correctLetters.size(); i++){
-				g.drawString("   "+correctLetters.get(i),250+(i*20), 200);
+			for (int j = 0; j < correctLetters.size(); j++){
+				g.drawString("   "+correctLetters.get(j),250+(j*20), 200);
 			}
-
-			g.drawString("Misses:",130, 215);
-
-			for (int i = 0; i < this.incorrectLetters.size(); i++){
-				g.drawString("   "+incorrectLetters.get(i),250+(i*20), 215);
-			}
-
 
 		}
 
@@ -88,26 +75,61 @@ public class PlayerPlaying implements GameState {
 		}
 
 		public void processKey(KeyEvent e){
+
+			if(i==0){
+				s="";
+			}
+			i++;
+
 			int keyCode = e.getKeyCode();
-			System.out.println("Tecla Presionada "+e.getKeyCode());
-			if(keyCode != 0){
+			System.out.println("Tecla Presionada "+(char)e.getKeyCode());
+			System.out.println(secretword);
+			if(keyCode == KeyEvent.VK_ENTER){
+				guess(s);
+				System.out.println(s);
+
+				s="";
+			}
+			else{
+				s+=KeyEvent.getKeyText(keyCode);
+			}
+		}
+
+		public void guess(String s){
+		if(secretword.contains(s)){
+			int aux=0;
+
+				for(int j=0;j<s.length();j++){
+					for(int k=0; k<secret_word_arr.size();k++){
+						if(secret_word_arr.get(k)==s.charAt(j)){
+							correctLetters.set(k,s.charAt(j) );
+						}
+					}
+
+				}
+				//did i win?
+				for(int j = 0; j < correctLetters.size(); j++){
+					if(correctLetters.get(j)=='_'){// no if there is at least one underscore
+						aux++;
+					}
+				}
+				if(aux==0){
+					win();
+				}
+			}
+			else{
 				transit();
 			}
 		}
 
-		public void guess(){}
+		public void win(){ //transit to win state
+			c.setState(c.getWinState());
+		}
 
-
-		public void win(){}
-
+		public int changeTurn(int id){
+			return id;
+	  }
 
 		public void clickMouse(MouseEvent e) {}
-
-
-		public boolean changeTurn(){
-			//if player loose return true transit to wait
-			return false;
-		}
-	//	public void setPlayer (Player p){	}
 
 }

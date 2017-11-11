@@ -24,67 +24,15 @@
 
 public class Player {
 
-    private GameState playing;
-    private GameState waiting;
-    private GameState currentState;
-    private boolean winner;
-    private String lastKeyword;
-    private String answer;
+    private int id;
 
-    public Player (){
-        winner = false;
-      //  lastKeyword = "";
-      //  answer = "";
-        /*playing = new PlayerPlaying(this);
-        waiting = new PlayerWaiting(this);*/
-        currentState = waiting;
+    public Player (int id){
+        this.id=id;
     }
 
-  /*  public void setState(PlayerState newState){
-        currentState = newState;
-    }*/
-
-  /*  public GameState getState() {
-		return currentState;
-	}
-
-    public GameState getPlaying(){
-        return playing;
-    }*/
-
-  /*  public void setAnswer(String x){
-    	answer = x;
+    public int getId(){
+      return id;
     }
 
-    public String getAnswer(){
-        return answer;
-    }
-*/
-    /*public GameState getWaiting(){
-        return waiting;
-    }*/
 
-  /*  public String getLastKeyword(){
-        return lastKeyword;
-    }
-
-    public void setLastKeyword(String keyword){
-        lastKeyword = keyword;
-    }*/
-
-    public void setWinner(boolean win){
-        winner = win;
-    }
-
-    public boolean getWinner(){
-        return winner;
-    }
-
-    public void playing(){
-        currentState=playing;
-    }
-
-    public void waiting(){
-        currentState=waiting;
-    }
 }

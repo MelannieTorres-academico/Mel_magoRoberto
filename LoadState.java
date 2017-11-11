@@ -57,16 +57,14 @@ public class LoadState implements GameState {
 		public void transit(){
 			c.setState(c.getPlayerPlayingState());
 		}
+    public int changeTurn(int id){
+      return id;
+    }
 
 		public void processKey(KeyEvent e){}
 
 		public void clickMouse(MouseEvent e) {}
 
-		// public void setPlayer (Player p){
-		// 	player=p;
-		// }
-		public boolean changeTurn(){
-			return false;
-		}
+    public void win(){}
 
 }

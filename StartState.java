@@ -38,23 +38,23 @@ public class StartState implements GameState {
 
 	public void draw(Graphics g){
 		g.setColor(Color.black);
-	  g.drawString("Estado inicial",100, 100);
+	  g.drawString("Da click para comenzar",100, 100);
 	}
 
 	public void transit(){
 		c.setState(c.getLoadState());
 	}
 
-	public void processKey(KeyEvent e){}
-
 	public void clickMouse(MouseEvent e) {
 		transit();
 	}
-	// public void setPlayer (Player p){
-	// 	player=p;
-	// }
 
-	public boolean changeTurn(){
-		return false;
+	public int changeTurn(int id){
+		return id;
 	}
+
+	public void processKey(KeyEvent e){}
+
+	public void win(){}
+
 }

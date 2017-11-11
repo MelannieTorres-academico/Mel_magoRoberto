@@ -10,15 +10,16 @@ public class GamePanel extends JPanel implements Runnable {
 	private static final int PHEIGHT = 400; //tamaño del panel
 
 	private Thread animator; //controla la animación
-	/*private volatile boolean start   = false;
+	private volatile boolean start   = false;
 	private volatile boolean load    = false;
 	private volatile boolean player1 = false;
 	private volatile boolean player2 = false;
-	private volatile boolean win     = false;*/
+	private volatile boolean win     = false;
 	private volatile boolean end     = false;
 	private String s;
 	private GameContext game;
 	int current_player= 1;
+	int change_player_aux;
 	private Player player1;
 	private Player player2;
 
@@ -31,8 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
 		readyForTermination();
 
 		game = new GameContext();
-		player1 = new Player();
-		player2 = new Player();
+		player1 = new Player(1);
+		player2 = new Player(2);
 
 		addMouseListener( new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void startGame(){
 		if(animator == null ){
+			game.setPlayer(player1);
 			animator = new Thread(this);
 			animator.start();
 		}
@@ -77,28 +79,22 @@ public class GamePanel extends JPanel implements Runnable {
                 dbg = dbImage.getGraphics();
             }
         }
-        dbg.setColor(Color.white);
-        dbg.fillRect(0,0,PWIDTH,PHEIGHT);
-        game.draw(dbg);
+      dbg.setColor(Color.white);
+      dbg.fillRect(0,0,PWIDTH,PHEIGHT);
+      game.draw(dbg);
 
+			change_player_aux=game.changeTurn(current_player);
 
-
-			if(game.changeTurn()){
+			if(current_player!=change_player_aux){
+				//change player
+				current_player=change_player_aux;
 				if(current_player==1){
-					current_player=2;
+					game.setPlayer(player1);
 				}
 				else{
-					current_player=1;
+					game.setPlayer(player2);
 				}
 			}
-
-			if(current_player==1){
-				game.setPlayer(player1);
-			}
-			else{
-				game.setPlayer(player2);
-			}
-
 }
 
 	private Graphics 	dbg;
@@ -116,6 +112,8 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		dbg.setColor(Color.white);
 		dbg.fillRect(0,0,PWIDTH,PHEIGHT);
+		dbg.setColor(Color.black);
+
 		game.draw(dbg);
 	}
 
@@ -132,11 +130,12 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	private void readyForTermination() {
+
 		addKeyListener( new KeyAdapter() { // listen for esc, q, end, ctrl-c
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
 				game.processKey(e);
-				if ((keyCode == KeyEvent.VK_ESCAPE) || (keyCode == KeyEvent.VK_Q) || (keyCode == KeyEvent.VK_END) || ((keyCode == KeyEvent.VK_C) && e.isControlDown()) ) {
+				if ((keyCode == KeyEvent.VK_ESCAPE) || (keyCode == KeyEvent.VK_END) || ((keyCode == KeyEvent.VK_C) && e.isControlDown()) ) {
 					end = true;
 				}
 			}

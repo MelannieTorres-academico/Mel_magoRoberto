@@ -33,7 +33,7 @@ interface GameState {
 	public void transit();
 	public void processKey(KeyEvent e);
 	public void clickMouse(MouseEvent e);
-	//public void setPlayer (Player p);
-	public boolean changeTurn();
+	public int changeTurn(int id);
+	public void win();
 
 }

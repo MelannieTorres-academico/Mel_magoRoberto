@@ -30,6 +30,7 @@ import java.awt.event.MouseEvent;
 public class EndState implements GameState {
 		GameContext c;
 		Player player;
+		int i;
 
 		public EndState(GameContext c){
 			this.c = c;
@@ -37,7 +38,14 @@ public class EndState implements GameState {
 
 		public void draw(Graphics g){
 			g.setColor(Color.black);
-		  g.drawString("End State: El estado está corriendo",200, 200);
+		  g.drawString("Game over",200, 200);
+			if(i>200){
+				c.setState(this);
+			}
+		}
+
+		public int changeTurn(int id){
+			return id;
 		}
 
 		public void transit(){}
@@ -45,13 +53,6 @@ public class EndState implements GameState {
 		public void processKey(KeyEvent e){}
 
 		public void clickMouse(MouseEvent e) {}
-			// public void setPlayer (Player p){
-			// 	player=p;
-			// }
 
-			public boolean changeTurn(){
-				return false;
-			}
-
-
+		public void win(){}
 }

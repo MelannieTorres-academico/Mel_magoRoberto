@@ -34,28 +34,20 @@ public class GameContext {
 	GameState playerwaiting;
 	GameState win;
 	GameState end;
-
 	GameState currentState;
 	Player player;
 
 	public GameContext(){
 
-		start	  = (GameState) new StartState(this);
-		load  	= (GameState) new LoadState(this);
+		start	  			= (GameState) new StartState(this);
+		load  				= (GameState) new LoadState(this);
 		playerplaying = (GameState) new PlayerPlaying(this);
 		playerwaiting = (GameState) new PlayerWaiting(this);
-		win 		= (GameState) new WinState(this);
-		end 		= (GameState) new EndState(this);
-
-		currentState = start;
+		win 					= (GameState) new WinState(this);
+		end 					= (GameState) new EndState(this);
+		currentState  = start;
 	}
 
-	public void processKey(KeyEvent e){
-		currentState.processKey(e);
-	}
-	public void clickMouse(MouseEvent e) {
-		currentState.clickMouse(e);
-	}
 
 	public GameState getStartState(){
 		return this.start;
@@ -85,17 +77,28 @@ public class GameContext {
 		this.currentState = s;
 	}
 
-	public void draw(Graphics g){
-		currentState.draw(g);
-	}
-
 	public void setPlayer (Player p){
 		player=p;
 	}
 
-	public boolean changeTurn(){
-		return currentState.changeTurn();
+	public Player getPlayer (){
+		return player;
 	}
 
+	public void processKey(KeyEvent e){
+		currentState.processKey(e);
+	}
+	public void clickMouse(MouseEvent e) {
+		currentState.clickMouse(e);
+	}
+	public void draw(Graphics g){
+		currentState.draw(g);
+	}
 
+	public int changeTurn(int id){
+		return currentState.changeTurn(id);
+	}
+	public void win(){
+		 currentState.win();
+	}
 }

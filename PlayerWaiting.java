@@ -30,24 +30,35 @@ import java.awt.event.MouseEvent;
 public class PlayerWaiting implements GameState {
 
 	GameContext c;
-	int i;
+	int i=0;
 
 		public PlayerWaiting(GameContext c){
 			this.c = c;
 		}
 
-		public void draw(Graphics g){
-			g.setColor(Color.black);
-		  g.drawString("Player Waiting",200, 200);
+		public void transit(){
+				c.setState(c.getPlayerPlayingState());
 		}
 
-		public void transit(){
+		public int changeTurn(int id){
 			i++;
-			if(i>200){
-				c.setState(c.getPlayerPlayingState());
+			if(i==1){
+				if(id==1){
+					return 2;
+				}
+				else{
+					return 1;
+				}
 			}
-			//wait a sec, return to playerplaying
+			else{
+				i=0;
+				transit();
+				return id;
+			}
+
 		}
+
+	  public void draw(Graphics g){}
 
 		public void processKey(KeyEvent e){}
 
@@ -56,12 +67,5 @@ public class PlayerWaiting implements GameState {
 		public void guess(){}
 
 		public void clickMouse(MouseEvent e) {}
-
-		// public void setPlayer (Player p){}
-
-
-			public boolean changeTurn(){
-				return false;
-			}
 
 }
